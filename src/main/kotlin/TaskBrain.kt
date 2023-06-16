@@ -81,31 +81,5 @@ class TaskBrain {
 
     }
 
-    fun editTask() {
-        viewTasks()
-        println("Enter the number of the task you want to edit")
-        var taskIndex: Int = -1
-        taskIndex = readln().toInt()
-        if (taskIndex - 1 in 0..taskList.size) {
-//            edit functionality
-            println("Choose what to edit")
-            println("1. Title")
-            println("2. Description")
-            println("3. Status")
-            var selectedIndex = -1
-            selectedIndex = readln().toInt()
-            if (selectedIndex == 1) {
-                println("The task you want to edit is \n" +
-                        "")
-                println("${taskList.indexOf(taskList.elementAt(selectedIndex))}...${taskList.elementAt(selectedIndex).id}.....${taskList.elementAt(selectedIndex).title}........ ${taskList.elementAt(selectedIndex).description}..........${taskList.elementAt(selectedIndex).status}")
-                println("You selected to edit Title")
-                println("Old Title : ${taskList.elementAt(selectedIndex).title}\n Enter the New title\n")
-                var newTitle = readln().toString()
-                taskList.elementAt(selectedIndex).title = newTitle
-                println("The updated Task is")
-                println("${taskList.indexOf(taskList.elementAt(selectedIndex))}...${taskList.elementAt(selectedIndex).id}.....${taskList.elementAt(selectedIndex).title}........ ${taskList.elementAt(selectedIndex).description}..........${taskList.elementAt(selectedIndex).status}")
 
-            }
-        }
-    }
 }
