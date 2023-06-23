@@ -1,4 +1,6 @@
-var allTasks: MutableList<TaskDetails> = mutableListOf<TaskDetails>()
+import kotlin.system.exitProcess
+
+var allTasks: MutableList<TaskDetails> = mutableListOf()
 fun main() {
     while (true) {
         welcomeUser()
@@ -11,7 +13,7 @@ fun welcomeUser() {
     Option.values().forEach {
         println("${Option.values().indexOf(it) + 1} : $it")
     }
-    var selectedOption = readln().toInt()
+    val selectedOption = readln().toInt()
     println("You chose to ${Option.values().elementAt(selectedOption - 1)}")
 //    we now have a selected Option
     chooseOption(Option.values().elementAt(selectedOption - 1))
@@ -31,7 +33,7 @@ fun chooseOption(option: Option) {
 
         Option.UPDATE -> {
             println("Update Functionality selected")
-
+            editTask()
         }
 
         Option.DELETE -> {
@@ -39,28 +41,27 @@ fun chooseOption(option: Option) {
             deleteTask()
         }
 
-        else -> println("Seems you selected a wrong option")
     }
 }
 
 //add task.... get the user input here
 fun addTask() {
     val randomizer = Randomizer()
-    var title = ""
-    var description = ""
+    val title: String
+    val description: String
     println("Enter the title of your task")
     try {
         title = readln()
 
     } catch (e: Exception) {
-
+        exitProcess(0)
     }
-    println("Enter the Descripion of your task")
+    println("Enter the Description of your task")
     try {
         description = readln()
 
     } catch (e: Exception) {
-
+        exitProcess(0)
     }
 
 //    add functionality
@@ -81,7 +82,7 @@ fun viewTasks() {
 
 fun deleteTask() {
 //    delete task indexes
-    var taskIndex: Int = -1
+    val taskIndex: Int
     viewTasks()
     println("Select the Task index you want to remove")
     try {
@@ -93,9 +94,8 @@ fun deleteTask() {
         } else {
             if (taskIndex > allTasks.size) {
                 println("The task at that index does not exist. Did you mean to delete the last Task?")
-                var lastItem: String = ""
                 println("1. YES")
-                lastItem = readln().toString()
+                val lastItem: String = readln()
                 if (lastItem == "1" || lastItem == "YES") {
                     allTasks.removeLast()
                 } else {
@@ -106,8 +106,7 @@ fun deleteTask() {
                 println("The task at that index does not exist. Did you mean to delete the first Task?")
                 println("1. YES")
                 println("2. NO")
-                var firstItem: String = ""
-                firstItem = readln().toString()
+                val firstItem: String = readln()
                 if (firstItem == "1" || firstItem == "YES") {
                     allTasks.removeFirst()
                 } else {
@@ -125,23 +124,21 @@ fun deleteTask() {
 fun editTask() {
     viewTasks()
     println("Enter the number of the task you want to edit")
-    var taskIndex: Int = -1
-    taskIndex = readln().toInt()
+    val taskIndex: Int = readln().toInt()
     if (taskIndex - 1 in 0..allTasks.size) {
 //            edit functionality
         println("Choose what to edit")
         println("1. Title")
         println("2. Description")
         println("3. Status")
-        var selectedIndex = -1
-        selectedIndex = readln().toInt()
+        val selectedIndex: Int = readln().toInt()
         if (selectedIndex == 1) {
             println("The task you want to edit is \n" +
                     "")
             println("${allTasks.indexOf(allTasks.elementAt(selectedIndex))}...${allTasks.elementAt(selectedIndex).id}.....${allTasks.elementAt(selectedIndex).title}........ ${allTasks.elementAt(selectedIndex).description}..........${allTasks.elementAt(selectedIndex).status}")
             println("You selected to edit Title")
             println("Old Title : ${allTasks.elementAt(selectedIndex).title}\n Enter the New title\n")
-            var newTitle = readln().toString()
+            val newTitle = readln()
             allTasks.elementAt(selectedIndex).title = newTitle
             println("The updated Task is")
             println("${allTasks.indexOf(allTasks.elementAt(selectedIndex))}...${allTasks.elementAt(selectedIndex).id}.....${allTasks.elementAt(selectedIndex).title}........ ${allTasks.elementAt(selectedIndex).description}..........${allTasks.elementAt(selectedIndex).status}")
